@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+    <title>Techshop</title>
+</h:head>
+<f:metadata></f:metadata>
+<h:body>
+
+    <b:navBar brand="TechShop" brandHref="/techshop" fluid="true" style="background: #d5d8ec;" >
+        <b:navbarLinks pull="right">
+            <b:navLink value="Monitor" rendered="#{userDetail.userAdmin}" href="/techshop/admin/monitor.xhtml"/>
+            <b:navLink value="All Orders" rendered="#{userDetail.userAdmin}" href="/techshop/admin/orderlist.xhtml"/>
+            <b:navLink value="My Orders" rendered="#{not empty request.remoteUser}" href="/techshop/order/history.xhtml"/>
+            <b:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs" style="padding-top: 6px;display: block;">
+                <b:navCommandLink value="Logout" rendered="#{not empty request.remoteUser}" action="#{logout.submit}"/>
+            </b:form>
+            <b:navLink value="Login" rendered="#{empty request.remoteUser}" href="/techshop/login.xhtml"/>
+            <b:navLink value="Register" rendered="#{empty request.remoteUser}" href="/techshop/register.xhtml"/>
+            <b:navLink value="Checkout: #{cartItemsSessionBean.total}$" href="/techshop/checkout.xhtml"/>
+        </b:navbarLinks>
+    </b:navBar>
+
+    <h1 style="padding-bottom: 30px; margin: auto; display: table">
+        Finish your order:
+    </h1>
+    <b:form>
+        <b:dataTable value="#{cartItemsSessionBean.cartItemList}"
+                     var="cartItem"
+                     id="cartItemTable"
+                     responsive="true"
+                     searching="false">
+            <b:dataTableColumn label="Product Name" value="#{cartItem.product.productName}" />
+            <b:dataTableColumn searchable="false" value="#{cartItem.product.price}"/>
+            <b:dataTableColumn searchable="false" label = "Quantity" value="#{cartItem.quantity}">
+                <b:commandButton icon="trash" size="sm" style="margin-left: 10px" action="#{cartItemsSessionBean.removeItem(cartItem.product.id)}"/>
+            </b:dataTableColumn>
+        </b:dataTable>
+
+        <b:container id="order" fluid="true" style="padding-top:20px;">
+            <b:row>
+                <b:commandButton offset="10" icon="trash" rendered="#{not empty cartItemsSessionBean.cartItemList}"  action="#{cartItemsSessionBean.clearCart}" value="Clear" look="warning" span="1"/>
+                <b:button  rendered="#{not empty cartItemsSessionBean.cartItemList}" icon="shopping-cart" value="Order" look="primary" span="1" href="/techshop/order/details.xhtml"/>
+            </b:row>
+        </b:container>
+    </b:form>
+
+</h:body>
+</html>

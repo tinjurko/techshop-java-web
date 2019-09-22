@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+        <h:head>
+            <title>Techshop Login</title>
+        </h:head>
+        <h:outputStylesheet>
+            h3 {
+                text-align: center;
+            }
+        </h:outputStylesheet>
+    </h:head>
+
+    <b:navBar brand="TechShop" brandHref="/techshop" fluid="true" style="background: #d5d8ec;">
+        <b:navbarLinks pull="right">
+            <b:navLink value="Register" rendered="#{empty request.remoteUser}" href="/techshop/register.xhtml"/>
+        </b:navbarLinks>
+    </b:navBar>
+    <h:body>
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <h:form id="login">
+                        <b:row>
+                        <b:messages id="messages" globalOnly="true" offset="5" span="2"/>
+                        </b:row>
+                        <b:row>
+                            <b:inputText placeholder="username" offset="4" id="username" span="4" value="#{login.username}"/>
+                            <b:message for="username" span="3"/>
+                        </b:row>
+                        <b:row>
+                            <b:inputText placeholder="password" offset="4" type="password" span="4" id="password" value="#{login.password}"/>
+                            <b:message for="password" span="3"/>
+                        </b:row>
+                        <b:row>
+                        <b:commandButton offset="5" span="2" id="submit" update="@form" look="primary"
+                                             value="Login" action="#{login.submit}"/>
+                        </b:row>
+                    </h:form>
+                </div>
+            </div>
+    </h:body>
+</f:view>
+</html>

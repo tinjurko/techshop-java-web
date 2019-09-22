@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+    <title>Techshop</title>
+</h:head>
+<f:metadata></f:metadata>
+<h:body>
+
+    <b:navBar brand="TechShop" brandHref="/techshop" fluid="true" style="background: #d5d8ec;" >
+        <b:navbarLinks pull="right">
+            <b:navLink value="Monitor" rendered="#{userDetail.userAdmin}" href="/techshop/admin/monitor.xhtml"/>
+            <b:navLink value="All Orders" rendered="#{userDetail.userAdmin}" href="/techshop/admin/orderlist.xhtml"/>
+            <b:navLink value="My Orders" rendered="#{not empty request.remoteUser}" href="/techshop/order/history.xhtml"/>
+            <b:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs" style="padding-top: 6px;display: block;">
+                <b:navCommandLink value="Logout" rendered="#{not empty request.remoteUser}" action="#{logout.submit}"/>
+            </b:form>
+            <b:navLink value="Login" rendered="#{empty request.remoteUser}" href="/techshop/login.xhtml"/>
+            <b:navLink value="Register" rendered="#{empty request.remoteUser}" href="/techshop/register.xhtml"/>
+            <b:navLink value="Checkout: #{cartItemsSessionBean.total}$" href="/techshop/checkout.xhtml"/>
+        </b:navbarLinks>
+    </b:navBar>
+    <h1 style="padding-bottom: 30px; margin: auto; display: table">
+        Order history by everyone:
+    </h1>
+    <h:form>
+        <b:dataTable value="#{historyController.historyOrdersByEveryone}"
+                     var="order"
+                     id="orderTable"
+                     responsive="true">
+            <b:dataTableColumn value="#{order.user.username}" />
+            <b:dataTableColumn value="#{order.products}" />
+            <b:dataTableColumn value="#{order.price}"/>
+            <b:dataTableColumn value="#{order.orderTime}"/>
+            <b:dataTableColumn value="#{order.paymentMethod}"/>
+        </b:dataTable>
+    </h:form>
+</h:body>
+</html>

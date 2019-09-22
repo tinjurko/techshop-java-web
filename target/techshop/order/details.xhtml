@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+    <title>Techshop</title>
+</h:head>
+<f:metadata></f:metadata>
+<h:body>
+
+    <b:navBar brand="TechShop" brandHref="/techshop" fluid="true" style="background: #d5d8ec;" >
+        <b:navbarLinks pull="right">
+            <b:navLink value="Monitor" rendered="#{userDetail.userAdmin}" href="/techshop/admin/monitor.xhtml"/>
+            <b:navLink value="All Orders" rendered="#{userDetail.userAdmin}" href="/techshop/admin/orderlist.xhtml"/>
+            <b:navLink value="My Orders" rendered="#{not empty request.remoteUser}" href="/techshop/order/history.xhtml"/>
+            <b:form class="navbar-form navbar-left hidden-md hidden-sm hidden-xs" style="padding-top: 6px;display: block;">
+                <b:navCommandLink value="Logout" rendered="#{not empty request.remoteUser}" action="#{logout.submit}"/>
+            </b:form>
+            <b:navLink value="Login" rendered="#{empty request.remoteUser}" href="/techshop/login.xhtml"/>
+            <b:navLink value="Register" rendered="#{empty request.remoteUser}" href="/techshop/register.xhtml"/>
+            <b:navLink value="Checkout: #{cartItemsSessionBean.total}$" href="/techshop/checkout.xhtml"/>
+        </b:navbarLinks>
+    </b:navBar>
+    <b:form>
+        <b:dataTable value="#{cartItemsSessionBean.cartItemList}"
+                     var="cartItem"
+                     id="cartItemTable"
+                     responsive="true"
+                     searching="false">
+            <b:dataTableColumn label="Product Name" value="#{cartItem.product.productName}" />
+            <b:dataTableColumn searchable="false" value="#{cartItem.product.price}"/>
+            <b:dataTableColumn searchable="false" label = "Quantity" value="#{cartItem.quantity}"/>
+        </b:dataTable>
+        <h1 style="padding-bottom: 30px; margin: auto; display: table">
+            Finish your order:
+        </h1>
+        <b:row>
+            <b:inputText required="true" offset="4" id="firstName" span="4" label="First Name:" value="#{confirmOrder.firstName}"/>
+        </b:row>
+        <b:row>
+            <b:inputText required="true" offset="4" id="lastName" span="4" label="Last Name:"  value="#{confirmOrder.lastName}"/>
+        </b:row>
+        <b:row>
+            <b:inputText required="true" offset="4" type="address" span="4" label="Address:" id="address" value="#{confirmOrder.address}"/>
+        </b:row>
+        <b:row>
+            <b:inputText required="true" type="number"  offset="4"  span="4" label="Postal Code:" id="postalCode" value="#{confirmOrder.postalCode}"/>
+        </b:row>
+        <b:row>
+            <b:inputText required="true"
+                         type="number"  offset="4"  span="4" label="Phone Number:" id="phoneNumber" value="#{confirmOrder.phoneNumber}">
+                <f:facet name="prepend">
+                    <h:outputText value="+385" />
+                </f:facet>
+            </b:inputText>
+        </b:row>
+        <b:row>
+            <b:selectOneMenu value="#{confirmOrder.paymentMethod}" offset="4" span="4" required="true" label="Select your payment method:" select2="true">
+                <f:selectItem itemLabel="(Please select)" itemValue="" />
+                <f:selectItem itemLabel="Pay on delivery" itemValue="Pay On Delivery" />
+                <f:selectItem itemLabel="Paypal" itemValue="Paypal" />
+            </b:selectOneMenu>
+        </b:row>
+        <b:row>
+            <b:commandButton offset="5" span="2" id="submit" update="@form" look="primary"
+                             value="Finish order" action="#{confirmOrder.createAndSaveOrder}"/>
+        </b:row>
+    </b:form>
+
+</h:body>
+</html>

@@ -36,5 +36,4 @@ public class ProductDetails implements Serializable {
         cartItem = new CartItem();
     }
 
-
 }

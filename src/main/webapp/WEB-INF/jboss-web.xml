@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
-    <security-domain>jaspitest</security-domain>
+    <security-domain>jaspitest</security-domain> <!--Java Security Autorization - Wildfly-->
     <context-root>/techshop</context-root>
 </jboss-web>

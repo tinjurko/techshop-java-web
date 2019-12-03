@@ -33,7 +33,7 @@
                      responsive="true">
             <b:dataTableColumn value="#{product.category}" />
             <b:dataTableColumn searchable="false" value="#{product.price}"/>
-            <b:dataTableColumn searchable="false" label = "Product Name" value="#{product.productName}"/>
+            <b:dataTableColumn label = "Product Name" value="#{product.productName}"/>
             <b:dataTableColumn label="Details">
                 <b:button value="Details" outcome="product" look="info">
                     <f:param name="id" value="#{product.id}"/>

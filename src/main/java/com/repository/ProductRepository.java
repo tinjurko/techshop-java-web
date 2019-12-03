@@ -17,6 +17,7 @@ public class ProductRepository implements Serializable {
     public List<Product> queryAll() {
         return entityManager.createQuery("SELECT DISTINCT new com.shop.dbo.Product(e.category, e.price, e.productName, e.id) FROM Product e", Product.class).getResultList();
     }
+
     public Product find(Long id) {
         return entityManager.find(Product.class, id);
     }

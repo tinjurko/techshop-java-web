@@ -5,7 +5,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
 
-<!-- ogranici stranice-->
+<!-- All user page constraints-->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>App pages</web-resource-name>
@@ -16,7 +16,7 @@
             <role-name>USER</role-name>
         </auth-constraint>
     </security-constraint>
-<!--    1-->
+<!-- Admin user page constraints-->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Admin pages</web-resource-name>
@@ -26,7 +26,7 @@
             <role-name>ADMIN</role-name>
         </auth-constraint>
     </security-constraint>
-<!-- ogranici stranice-->
+<!-- -->
 
     <security-role>
         <role-name>USER</role-name>
